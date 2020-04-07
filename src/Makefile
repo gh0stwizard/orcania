@@ -94,6 +94,9 @@ clean:
 	rm -f *.o *.so *.a $(OUTPUT) $(OUTPUT).* $(CONFIG_FILE) $(PKGCONFIG_FILE)
 
 install: all $(PKGCONFIG_FILE)
+	install -d -m755 $(DESTDIR)/lib
+	install -d -m755 $(DESTDIR)/lib/pkgconfig
+	install -d -m755 $(DESTDIR)/include
 	install $(OUTPUT).$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH) $(DESTDIR)/lib
 	install -m644 $(PKGCONFIG_FILE) $(DESTDIR)/lib/pkgconfig
 	install -m644 ../include/orcania.h $(DESTDIR)/include
@@ -101,6 +104,9 @@ install: all $(PKGCONFIG_FILE)
 	-ldconfig $(DESTDIR)/lib
 
 static-install: static
+	install -d -m755 $(DESTDIR)/lib
+	install -d -m755 $(DESTDIR)/lib/pkgconfig
+	install -d -m755 $(DESTDIR)/include
 	install liborcania.a $(DESTDIR)/lib
 	install -m644 $(PKGCONFIG_FILE) $(DESTDIR)/lib/pkgconfig
 	install -m644 ../include/orcania.h $(DESTDIR)/include

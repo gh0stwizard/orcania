@@ -16,29 +16,32 @@
 LIBORCANIA_LOCATION=./src
 TESTS_LOCATION=./test
 
-all: target
+all: shared static
 
-target:
-	cd $(LIBORCANIA_LOCATION) && $(MAKE) $*
+shared:
+	$(MAKE) -C $(LIBORCANIA_LOCATION) $*
+
+static:
+	$(MAKE) -C $(LIBORCANIA_LOCATION) static $*
 
 debug:
-	cd $(LIBORCANIA_LOCATION) && $(MAKE) debug $*
+	$(MAKE) -C $(LIBORCANIA_LOCATION) debug $*
 
 clean:
-	cd $(LIBORCANIA_LOCATION) && $(MAKE) clean
-	cd $(TESTS_LOCATION) && $(MAKE) clean
+	$(MAKE) -C $(LIBORCANIA_LOCATION) clean
+	$(MAKE) -C $(TESTS_LOCATION) clean
 
 check:
-	cd $(LIBORCANIA_LOCATION) && $(MAKE) debug $*
-	cd $(TESTS_LOCATION) && $(MAKE) test $*
+	$(MAKE) -C $(LIBORCANIA_LOCATION) debug $*
+	$(MAKE) -C $(TESTS_LOCATION) test $*
 
 install:
-	cd $(LIBORCANIA_LOCATION) && $(MAKE) install $*
+	$(MAKE) -C $(LIBORCANIA_LOCATION) install static-install $*
 
 uninstall:
-	cd $(LIBORCANIA_LOCATION) && $(MAKE) uninstall $*
+	$(MAKE) -C $(LIBORCANIA_LOCATION) uninstall $*
 
 doxygen:
 	doxygen doc/doxygen.cfg
 
-release: target
+release: shared static
